@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+  <style>
+    * {
+      font-family: 'Lato', sans-serif;
+      font-size: 11px;
+    }
+
+    h1 {
+      font-size: 2em;
+    }
+
+    #main {
+      width: 960px;
+    }
+
+    button {
+      padding: 5px 10px;
+    }
+
+    button.selected {
+      background: #666;
+      color: #fff;
+    }
+
+    .axis .domain,
+    .xaxis .tick line {
+      display: none;
+    }
+
+    .yaxis .tick line {
+      stroke-dasharray: 3;
+      stroke: #ccc;
+    }
+
+    .yaxis .tick:first-of-type line {
+      stroke-dasharray: none;
+      stroke: #999;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Health of Trees in New York City Boros</h1>
+  <div id="main">
+
+    <button onclick="filterAll(this)" class="btn selected">All</button>
+    <button onclick="filter(this, 'Good')" class="btn">Good Health</button>
+    <button onclick="filter(this, 'Fair')" class="btn">Fair Health</button>
+    <button onclick="filter(this, 'Poor')" class="btn">Poor Health</button>
+    <button onclick="filter(this, 'Stump')" class="btn">Stump</button>
+    <button onclick="filter(this, 'Dead')" class="btn">Dead</button>
+    <br />
+    <svg width="960" height="500"></svg>
+  </div>
+
+  <div id="viz"></div>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="tree-health.js"></script>
+
+  <!-- <script>
+    d3.csv('trees.csv').then(data => {
+      console.log(data[0]);
+
+      let obj = {};
+
+      for (let row of data) {
+        if (!(row.boroname in obj)) {
+          obj[row.boroname] = {};
+        }
+
+        let d = obj[row.boroname];  
+        let col = (row.status === 'Alive') ? row.health : row.status;
+
+        if (!(col in d)) {
+          d[col] = 0;
+        }
+
+        d[col]++;
+      }
+
+      console.log(obj);
+
+      let keys = ['Dead','Fair','Good','Poor','Stump'];
+      let s = '';
+
+      for (let boroname in obj) {
+        s += boroname;
+
+        for (let key of keys) {
+          s += `,${obj[boroname][key]}`;
+        }
+
+        s += '\n';
+      }
+
+      console.log(s);
+    })
+  </script> -->
+
+  <!-- <script>
+    d3.csv('trees.csv').then(data => {
+      console.log(data[0]);
+
+      let obj = {};
+
+      for (let row of data) {
+        let col = row.spc_common;
+
+        if (!(col in obj)) {
+          obj[col] = 0;
+        }
+
+        obj[col]++;
+      }
+
+      console.log(obj);
+
+      let arr = [];
+      let other = {
+        type: 'other',
+        num: 0
+      };
+
+      for (let key in obj) {
+        if (key) {
+          let num = obj[key];
+          if (num > 1000) {
+            arr.push({
+              type: key,
+              num
+            })
+          } else {
+            other.num += num;
+          }
+        }
+      }
+
+      arr.sort((a, b) => b.num - a.num);
+      // arr.push(other);
+
+      console.log(arr);
+
+      let s = '';
+
+      for (let d of arr) {
+        s += `${d.type.replace("'", "")},${d.num}`;
+        s += '\n';
+
+      }
+
+      console.log(s);
+    })
+  </script> -->
+
+</body>
+
+</html>
