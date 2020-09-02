@@ -1,1 +1,0 @@
-## Major Studio 1
